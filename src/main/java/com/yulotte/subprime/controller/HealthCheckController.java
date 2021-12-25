@@ -11,6 +11,6 @@ public class HealthCheckController {
 
     @GetMapping("api/ping")
     public String ping() {
-        return "ok";
+        return "ping-ok";
     }
 }
