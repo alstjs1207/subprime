@@ -6,11 +6,14 @@ package com.yulotte.subprime.policy;
  */
 public class PurchaseBrokeragePolicy {
     public Long calculate(Long price) {
-        //TODO
         /**
-         * 좋지 않다.
-         * 생성과 계산을 같이 하고있다.
+         * 생성과 계산을 분리합니다.
          */
+        BrokerageRule brokerageRule = createBrokerageRule(price);
+        return brokerageRule.calcMaxBrokerage(price);
+    }
+
+    private BrokerageRule createBrokerageRule(Long price) {
         BrokerageRule rule;
         if (price < 50_000_000) {
             rule = BrokerageRule.builder().brokeragePercent(0.6).limitAmount(250_000L).build();
@@ -23,6 +26,6 @@ public class PurchaseBrokeragePolicy {
         } else {
             rule = BrokerageRule.builder().brokeragePercent(0.9).limitAmount(null).build();
         }
-        return rule.calcMaxBrokerage(price);
+        return rule;
     }
 }
