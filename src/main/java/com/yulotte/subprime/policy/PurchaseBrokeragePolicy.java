@@ -4,16 +4,9 @@ package com.yulotte.subprime.policy;
  *
  * 매매 일때 중계 수수료 계산
  */
-public class PurchaseBrokeragePolicy {
-    public Long calculate(Long price) {
-        /**
-         * 생성과 계산을 분리합니다.
-         */
-        BrokerageRule brokerageRule = createBrokerageRule(price);
-        return brokerageRule.calcMaxBrokerage(price);
-    }
+public class PurchaseBrokeragePolicy implements BrokeragePolicy {
 
-    private BrokerageRule createBrokerageRule(Long price) {
+    public BrokerageRule createBrokerageRule(Long price) {
         BrokerageRule rule;
         if (price < 50_000_000) {
             rule = BrokerageRule.builder().brokeragePercent(0.6).limitAmount(250_000L).build();
